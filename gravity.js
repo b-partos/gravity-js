@@ -47,6 +47,11 @@ class Vector {
         return new Vector(this.x*scalarValue, this.y*scalarValue);
     }
 
+    scalarProduct(otherVector) {
+        Vector.checkIfVector(otherVector, "otherVector");
+        return this.x*otherVector.x + this.y*otherVector.y;
+    }
+
     get magnitude() {
         return Math.sqrt(this.x*this.x+this.y*this.y)
     }
@@ -189,7 +194,7 @@ const balls = initialConfigurations["dancing balls"];
 function calculateAttraction(ball1, ball2) {
     const p = ball2.position;
     const distance = ball1.position.add(ball2.position.multiplyByScalar(-1));
-    const forceMagnitude = (-1)*ball1.mass*ball2.mass/distance.magnitude**2;
+    const forceMagnitude = (-1)*ball1.mass*ball2.mass/distance.scalarProduct(distance);
     return distance.multiplyByScalar(forceMagnitude/distance.magnitude);
 }
 
